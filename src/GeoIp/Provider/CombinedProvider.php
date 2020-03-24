@@ -8,7 +8,7 @@ use GeoIp\GeoIp\Provider;
 class CombinedProvider extends Provider
 {
     protected $_baseConfig = [
-        'providers' => []
+        'providers' => [],
     ];
 
     /**
@@ -74,5 +74,4 @@ class CombinedProvider extends Provider
 
         return $location;
     }
-
 }

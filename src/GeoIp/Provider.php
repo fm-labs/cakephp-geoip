@@ -20,7 +20,7 @@ abstract class Provider
         'zip_code' => null,
         'latitude' => null,
         'longitude' => null,
-        'timezone' => null
+        'timezone' => null,
     ];
 
     /**
@@ -87,7 +87,7 @@ abstract class Provider
     public function __debugInfo()
     {
         return [
-            'alias' => $this->alias()
+            'alias' => $this->alias(),
         ];
     }
 }

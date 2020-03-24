@@ -5,11 +5,19 @@ namespace GeoIp\Datasource;
 use Cake\Cache\Cache;
 use Cake\Core\App;
 use Cake\Datasource\ConnectionInterface;
+use Cake\Datasource\string;
+use Cake\Log\Log;
 use Cake\Utility\Text;
 use GeoIp\Exception\MissingProviderException;
 
 /**
  * GeoIP Datasource
+ * @method \Cake\Database\Schema\Collection getSchemaCollection()
+ * @method \Cake\Database\Query newQuery()
+ * @method \Cake\Database\StatementInterface prepare($sql)
+ * @method \Cake\Database\StatementInterface execute($query, $params = [], array $types = [])
+ * @method \Cake\Database\StatementInterface query(string $sql)
+ * @method string quote($value, $type = null)
  */
 class GeoIpDatasource implements ConnectionInterface
 {
@@ -24,7 +32,7 @@ class GeoIpDatasource implements ConnectionInterface
     protected $_baseConfig = [
         'cacheConfig' => 'geo_ip',
         'provider' => null,
-        'log' => false
+        'log' => false,
     ];
 
     /**
@@ -38,6 +46,8 @@ class GeoIpDatasource implements ConnectionInterface
      * @var bool
      */
     protected $_logQueries = false;
+
+    protected $_logger = null;
 
     /**
      * Constructor
@@ -142,10 +152,12 @@ class GeoIpDatasource implements ConnectionInterface
      *
      * @param string $ip IPv4 address
      * @return bool
+     * @todo The class B network is not entirerly detected
      */
     public function isPrivateAddress($ip)
     {
-        if ($this->isLocalAddress($ip)
+        if (
+            $this->isLocalAddress($ip)
             || preg_match('/^10\./', $ip) // class A 10.0.0.0 – 10.255.255.255, 10.0.0.0/8
             || preg_match('/^172\.16\./', $ip) // class B 172.16.0.0 – 172.31.255.255, 172.16.0.0/12
             || preg_match('/^192\.168\./', $ip) // class C 192.168.0.0 – 192.168.255.255, 192.168.0.0/16
@@ -232,14 +244,15 @@ class GeoIpDatasource implements ConnectionInterface
      *
      * @param object|null $instance logger object instance
      * @return object logger instance
+     * @deprecated
      */
     public function logger($instance = null)
     {
         if ($instance === null) {
-            //@TODO Create logger
+            return $this->_logger;
         }
 
-        return $instance;
+        return $this->_logger = $instance;
     }
 
     /**
@@ -256,5 +269,56 @@ class GeoIpDatasource implements ConnectionInterface
             //'logQueries' => $this->_logQueries,
             //'logger' => $this->_logger
         ];
+    }
+
+    public function getLogger()
+    {
+        return $this->_logger;
+    }
+
+    public function setLogger($logger)
+    {
+        $this->_logger = $logger;
+
+        return $this;
+    }
+
+    public function supportsDynamicConstraints()
+    {
+        return false;
+    }
+
+    public function enableQueryLogging($value)
+    {
+        $this->_logQueries = $value;
+
+        return $this;
+    }
+
+    public function disableQueryLogging()
+    {
+        $this->_logQueries = false;
+
+        return $this;
+    }
+
+    public function disableSavePoints()
+    {
+        return $this;
+    }
+
+    public function isQueryLoggingEnabled()
+    {
+        return $this->_logQueries;
+    }
+
+    function __call($name, $arguments)
+    {
+        // TODO: Implement @method \Cake\Database\Schema\Collection getSchemaCollection()
+        // TODO: Implement @method \Cake\Database\Query newQuery()
+        // TODO: Implement @method \Cake\Database\StatementInterface prepare($sql)
+        // TODO: Implement @method \Cake\Database\StatementInterface execute($query, $params = [], array $types = [])
+        // TODO: Implement @method \Cake\Database\StatementInterface query(string $sql)
+        // TODO: Implement @method string quote($value, $type = null)
     }
 }

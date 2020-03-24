@@ -8,35 +8,35 @@ use Cake\Log\Log;
 /*
  * Cache config
  */
-if (!Cache::config('geo_ip')) {
-    Cache::config('geo_ip', [
+if (!Cache::getConfig('geo_ip')) {
+    Cache::setConfig('geo_ip', [
         'className' => 'File',
         'duration' => '+1 weeks',
         'path' => CACHE . 'geo_ip' . DS,
-        'prefix' => ''
+        'prefix' => '',
     ]);
 }
 
 /*
  * Logs
  */
-if (!Log::config('geo_ip')) {
-    Log::config('geo_ip', [
+if (!Log::getConfig('geo_ip')) {
+    Log::setConfig('geo_ip', [
         'className' => 'Cake\Log\Engine\FileLog',
         'path' => LOGS,
         'file' => 'geo_ip',
         //'levels' => ['info'],
-        'scopes' => ['geo_ip']
+        'scopes' => ['geo_ip'],
     ]);
 }
 
 /*
  * Connection
  */
-if (!ConnectionManager::config('geo_ip')) {
+if (!ConnectionManager::getConfig('geo_ip')) {
     if (Configure::check('GeoIp')) {
         $config = Configure::read('GeoIp');
         $config += ['className' => '\GeoIp\Datasource\GeoIpDatasource'];
-        ConnectionManager::config('geo_ip', $config);
+        ConnectionManager::setConfig('geo_ip', $config);
     }
 }

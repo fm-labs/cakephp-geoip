@@ -10,7 +10,7 @@ class IpinfodbProvider extends Provider
     const API_BASE_URL = 'http://api.ipinfodb.com/';
 
     protected $_baseConfig = [
-        'apiKey' => ''
+        'apiKey' => '',
     ];
 
     /**
@@ -24,7 +24,7 @@ class IpinfodbProvider extends Provider
         if (!preg_match('/^[0-9a-z]{64}$/', $this->_config['apiKey'])) {
             throw new InvalidProviderException([
                 'provider' => $this->alias(),
-                'message' => __('Invalid IPInfoDB API key')
+                'message' => __('Invalid IPInfoDB API key'),
             ]);
         }
     }
@@ -55,7 +55,7 @@ class IpinfodbProvider extends Provider
             'zipCode' => 'zip_code',
             'latitude' => 'latitude',
             'longitude' => 'longitude',
-            'timeZone' => 'timezone'
+            'timeZone' => 'timezone',
         ];
 
         return $this->_parseLocation($result, $map);

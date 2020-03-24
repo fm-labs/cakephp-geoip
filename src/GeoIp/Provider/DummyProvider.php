@@ -12,7 +12,7 @@ class DummyProvider extends Provider
     public function lookup($ip, $options = [])
     {
         return [
-            'country_iso2' => 'AT'
+            'country_iso2' => 'AT',
         ];
     }
 }

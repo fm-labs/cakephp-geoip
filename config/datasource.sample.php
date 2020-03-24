@@ -5,7 +5,7 @@ return [
         'geo_ip' => [
             'className' => '\GeoIp\Datasource\GeoIpDatasource',
             'provider' => 'GeoIp.Ipinfodb',
-            'apiKey' => ''
+            'apiKey' => '',
         ],
 
         // multiple providers (ordered by priority)
@@ -15,9 +15,9 @@ return [
             'providers' => [
                 'ipconfigdb' => [
                     'provider' => 'GeoIp.Ipinfodb',
-                    'apiKey' => ''
-                ]
-            ]
+                    'apiKey' => '',
+                ],
+            ],
         ],
-    ]
+    ],
 ];
