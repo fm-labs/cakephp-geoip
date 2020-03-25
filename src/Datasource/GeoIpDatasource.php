@@ -5,8 +5,6 @@ namespace GeoIp\Datasource;
 use Cake\Cache\Cache;
 use Cake\Core\App;
 use Cake\Datasource\ConnectionInterface;
-use Cake\Datasource\string;
-use Cake\Log\Log;
 use Cake\Utility\Text;
 use GeoIp\Exception\MissingProviderException;
 
