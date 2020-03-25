@@ -7,6 +7,8 @@ use Cake\Core\App;
 use Cake\Datasource\ConnectionInterface;
 use Cake\Utility\Text;
 use GeoIp\Exception\MissingProviderException;
+use Psr\Log\LoggerInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * GeoIP Datasource
@@ -16,6 +18,7 @@ use GeoIp\Exception\MissingProviderException;
  * @method \Cake\Database\StatementInterface execute($query, $params = [], array $types = [])
  * @method \Cake\Database\StatementInterface query(string $sql)
  * @method string quote($value, $type = null)
+ * @method object getDriver()
  */
 class GeoIpDatasource implements ConnectionInterface
 {
@@ -171,7 +174,7 @@ class GeoIpDatasource implements ConnectionInterface
      *
      * @return string
      */
-    public function configName()
+    public function configName(): string
     {
         return 'geo_ip';
     }
@@ -181,7 +184,7 @@ class GeoIpDatasource implements ConnectionInterface
      *
      * @return array
      */
-    public function config()
+    public function config(): array
     {
         return $this->_config;
     }
@@ -269,7 +272,7 @@ class GeoIpDatasource implements ConnectionInterface
         ];
     }
 
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         return $this->_logger;
     }
@@ -286,7 +289,7 @@ class GeoIpDatasource implements ConnectionInterface
         return false;
     }
 
-    public function enableQueryLogging($value)
+    public function enableQueryLogging(bool $value = true)
     {
         $this->_logQueries = $value;
 
@@ -305,7 +308,7 @@ class GeoIpDatasource implements ConnectionInterface
         return $this;
     }
 
-    public function isQueryLoggingEnabled()
+    public function isQueryLoggingEnabled(): bool
     {
         return $this->_logQueries;
     }
@@ -318,5 +321,21 @@ class GeoIpDatasource implements ConnectionInterface
         // TODO: Implement @method \Cake\Database\StatementInterface execute($query, $params = [], array $types = [])
         // TODO: Implement @method \Cake\Database\StatementInterface query(string $sql)
         // TODO: Implement @method string quote($value, $type = null)
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setCacher(CacheInterface $cacher)
+    {
+        // TODO: Implement setCacher() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCacher(): CacheInterface
+    {
+        // TODO: Implement getCacher() method.
     }
 }

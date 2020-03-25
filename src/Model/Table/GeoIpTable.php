@@ -12,7 +12,7 @@ class GeoIpTable
     /**
      * @return string
      */
-    public static function defaultConnectionName()
+    public static function defaultConnectionName(): string
     {
         return 'geo_ip';
     }
