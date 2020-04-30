@@ -12,13 +12,12 @@ use Psr\SimpleCache\CacheInterface;
 
 /**
  * GeoIP Datasource
+ * @method object getDriver()
  * @method \Cake\Database\Schema\Collection getSchemaCollection()
  * @method \Cake\Database\Query newQuery()
  * @method \Cake\Database\StatementInterface prepare($sql)
  * @method \Cake\Database\StatementInterface execute($query, $params = [], array $types = [])
  * @method \Cake\Database\StatementInterface query(string $sql)
- * @method string quote($value, $type = null)
- * @method object getDriver()
  */
 class GeoIpDatasource implements ConnectionInterface
 {
@@ -313,16 +312,6 @@ class GeoIpDatasource implements ConnectionInterface
         return $this->_logQueries;
     }
 
-    function __call($name, $arguments)
-    {
-        // TODO: Implement @method \Cake\Database\Schema\Collection getSchemaCollection()
-        // TODO: Implement @method \Cake\Database\Query newQuery()
-        // TODO: Implement @method \Cake\Database\StatementInterface prepare($sql)
-        // TODO: Implement @method \Cake\Database\StatementInterface execute($query, $params = [], array $types = [])
-        // TODO: Implement @method \Cake\Database\StatementInterface query(string $sql)
-        // TODO: Implement @method string quote($value, $type = null)
-    }
-
     /**
      * @inheritDoc
      */
@@ -337,5 +326,15 @@ class GeoIpDatasource implements ConnectionInterface
     public function getCacher(): CacheInterface
     {
         // TODO: Implement getCacher() method.
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement @method object getDriver()
+        // TODO: Implement @method \Cake\Database\Schema\Collection getSchemaCollection()
+        // TODO: Implement @method \Cake\Database\Query newQuery()
+        // TODO: Implement @method \Cake\Database\StatementInterface prepare($sql)
+        // TODO: Implement @method \Cake\Database\StatementInterface execute($query, $params = [], array $types = [])
+        // TODO: Implement @method \Cake\Database\StatementInterface query(string $sql)
     }
 }
